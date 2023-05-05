@@ -51,7 +51,7 @@ cv2_imshow(img) # Display the image
 
 # SOURCE: LAB 3
 
-from torchvision.models import detection
+from torchvision.models import detection # Used for detection of vehicles
 import numpy as np
 import torch
 from timeit import default_timer as timer
