@@ -9,49 +9,49 @@
 
 import cv2
 from dbruntime.patches import cv2_imshow
-img = cv2.imread("/dbfs/FileStore/shared_uploads/sean.stilwell@ssc-spc.gc.ca/000447.jpg", cv2.IMREAD_ANYCOLOR)
-cv2_imshow(img)
+img = cv2.imread("/dbfs/FileStore/shared_uploads/sean.stilwell@ssc-spc.gc.ca/000447.jpg", cv2.IMREAD_ANYCOLOR) # Read the image
+cv2_imshow(img) # Display the image
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC # CSI 4533 - Projet
-# MAGIC 
+# MAGIC
 # MAGIC * Student Name: Sean Stilwell
 # MAGIC * Student Number: 300053246
 # MAGIC * Date: March 8, 2022
-# MAGIC 
+# MAGIC
 # MAGIC ## Part 3
-# MAGIC 
+# MAGIC
 # MAGIC The third part of your project is to use an object detector based on convolutional networks to detect vehicles and pedestrians in the scene.
-# MAGIC 
+# MAGIC
 # MAGIC This means that the Ground-truth file will not be used at all to track the actors in the scene. This file will only be used to evaluate the quality of the obtained results.
-# MAGIC 
+# MAGIC
 # MAGIC So add the object detector designed in part 1. The output of your tracker should be the images of the sequence showing the detection boxes with the colors showing the temporal associations. In addition your tracker should produce a detection text file with a format similar to the ground-truth file, i.e. one detection per line with:
-# MAGIC 
+# MAGIC
 # MAGIC Image_No. Object_ID X Y Width Height Class 
-# MAGIC 
+# MAGIC
 # MAGIC The object_ID is simply the RGB value of the box color. The class number for pedestrians is 1 and for cars is 3.
-# MAGIC 
+# MAGIC
 # MAGIC Next you need to calculate the MOTA of your solution. This is done by comparing your detection file with the ground-truth file as follows:
-# MAGIC 
+# MAGIC
 # MAGIC For each detected object, check if this object has a corresponding object in the ground-truth file (IoU > 0.4). If yes, note the ID of this object in the GT (if there is more than one, consider the object with the highest IoU). Otherwise count this detection as a false positive (FP).
-# MAGIC 
+# MAGIC
 # MAGIC For each object in the ground-truth, check if this object has a corresponding object in the detection file (IoU > 0.4). If not, count this object as a false negative.
-# MAGIC 
+# MAGIC
 # MAGIC Finally, for each group of objects with the same label in your detections, count the number of different labels from the ground-truth. This number-1 gives the number of identity changes.
-# MAGIC 
+# MAGIC
 # MAGIC From these values, it is possible to calculate the MOTA value.
-# MAGIC 
+# MAGIC
 # MAGIC ## Code
-# MAGIC 
+# MAGIC
 # MAGIC We start by loading the NN_detector code. This is used directly from lab 3, I declare the identical NN_detector class followed by an adapted run_detector script.
 
 # COMMAND ----------
 
 # SOURCE: LAB 3
 
-from torchvision.models import detection
+from torchvision.models import detection # Used for detection of vehicles
 import numpy as np
 import torch
 from timeit import default_timer as timer
@@ -172,7 +172,7 @@ df.head(5)
 
 # MAGIC %md
 # MAGIC ## Part 1
-# MAGIC 
+# MAGIC
 # MAGIC Changed only to use the dataframe built by run_detector rather than the given gt.txt file. Also removed the constraint that width >= 1.2 * height, as our measure is now from the neural network.
 
 # COMMAND ----------
@@ -185,7 +185,7 @@ df.head(5) # We display the first 5 rows of the dataframe for confirmation
 
 # MAGIC %md
 # MAGIC ### Helper Functions
-# MAGIC 
+# MAGIC
 # MAGIC These functions facilitate the matching between images, using the IOU and matrix.
 
 # COMMAND ----------
@@ -232,9 +232,9 @@ def intersection_over_union(box_1, box_2):
 
 # MAGIC %md
 # MAGIC ### Determining trajectories
-# MAGIC 
+# MAGIC
 # MAGIC This code conducts the matching between images using the IOU function above. It starts by calculating the IOU over the matrix of current vehicles (columns) and next vehicles (rows). Any values below 0.4 are set to 0. It then iterates again through the matrix while there are values > 0 present, finding the max value at each iteration. Other values in that row/column are set to 0, while the matched ones are set to -1.
-# MAGIC 
+# MAGIC
 # MAGIC In order to save the results, we use a dictionary called `trajectory_tracker`. For example, if image 1 from the original image is matched with image 32 in the next image, `trajectory_tracker[1] = 32`. 
 
 # COMMAND ----------
@@ -286,9 +286,9 @@ for x in range(IMAGE_START, IMAGE_END):
 
 # MAGIC %md
 # MAGIC ### Output creation
-# MAGIC 
+# MAGIC
 # MAGIC With the trajectories of boxes determined, we can then create our output. We start by randomly setting the colours for each box. If that box has a matched box in `trajectory_tracker`, we set the colour of that box to the same colour. If a box already appears in the colours dictionary, we don't need to reset it and can simply set the next corresponding box to that colour.
-# MAGIC 
+# MAGIC
 # MAGIC After that, we simply iterate through the images for the problem and add a coloured rectangle to each of the images. When finished with all the boxes, we save the new image to the output folder and append it to a video. After finishing, we simply release the video.
 
 # COMMAND ----------
@@ -345,11 +345,11 @@ out.release() # End video
 
 # MAGIC %md
 # MAGIC ## Part 2
-# MAGIC 
+# MAGIC
 # MAGIC Changed since we need to consider that boxes are going to vary now - i.e a predicted box isn't exactly the same as the corresponding accurate box.
-# MAGIC 
+# MAGIC
 # MAGIC ### Code
-# MAGIC 
+# MAGIC
 # MAGIC We start by adding an ID to the original dataframe. This allows us to track where a box first originated from and is assigned similarly to how colours are assigned.
 
 # COMMAND ----------
@@ -383,9 +383,9 @@ detections.to_csv('/dbfs/FileStore/shared_uploads/sean.stilwell@ssc-spc.gc.ca/de
 
 # MAGIC %md
 # MAGIC ### FP, FN, IDS Calculation
-# MAGIC 
+# MAGIC
 # MAGIC We read the new tracking file that contains information on objects over the series of images. We can then go through the images two at a time in both the old dataframe and the new one to make the following comparisons:
-# MAGIC 
+# MAGIC
 # MAGIC * If a box appears in the NEW file, the same box (i.e same dimensions) should appear in the other. If not, we increment false negatives.
 # MAGIC * If a box appears in the OLD file, the same box (i.e same dimensions) should appear in the other. If not, we increment false positives.
 # MAGIC * If a box appears appropriately in BOTH files, we ensure that it has a matching picture in the next images (where needed). If not, we increment IDS.
@@ -534,7 +534,7 @@ print("Total MOTA:", 1 - numerator/denominator)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC # Output
 
 # COMMAND ----------
