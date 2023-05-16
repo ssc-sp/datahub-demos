@@ -7,8 +7,8 @@
 
 # COMMAND ----------
 
-import cv2
-from dbruntime.patches import cv2_imshow
+import cv2 # The OpenCV package
+from dbruntime.patches import cv2_imshow 
 img = cv2.imread("/dbfs/FileStore/shared_uploads/sean.stilwell@ssc-spc.gc.ca/000447.jpg", cv2.IMREAD_ANYCOLOR) # Read the image
 cv2_imshow(img) # Display the image
 
