@@ -79,7 +79,7 @@ spark.sql(
 # MAGIC
 # MAGIC  create or replace view project_user_count as
 # MAGIC  select dept, count(9) as user_count from (
-# MAGIC  select case lower(substring(domain, 1, charindex('.', domain)-1)) when 'agr' then 'AAFC' when 'asc-csa'  then 'CSA' when 'cnrc-nrc' then 'NRC' when 'dfo-mpo' then 'DFO' when 'ec' then 'ECCC' when 'inspection' then 'CFIA' when 'nrcan' then 'NRCan' when 'nrcan-rncan' then 'NRCan' when 'nrc-cnrc' then 'NRC'when 'otc-cta' then 'CTA' when 'ssc-spc' then 'SSC' else domain end as dept from (
+# MAGIC  select case lower(substring(domain, 1, charindex('.', domain)-1)) when 'agr' then 'AAFC' when 'asc-csa'  then 'CSA' when 'cnrc-nrc' then 'NRC' when 'dfo-mpo' then 'DFO' when 'ec' then 'ECCC' when 'inspection' then 'CFIA' when 'nrcan' then 'NRCan' when 'nrcan-rncan' then 'NRCan' when 'nrc-cnrc' then 'NRC'when 'otc-cta' then 'CTA' when 'ssc-spc' then 'SSC' when 'hc-sc' then 'HC' else domain end as dept from (
 # MAGIC  SELECT RIGHT (user_name,
 # MAGIC  LEN(user_name) - CHARINDEX( '@', user_name)) AS Domain
 # MAGIC  FROM project_users) as emails where domain not like 'apption%') as departments group by dept;
@@ -87,7 +87,7 @@ spark.sql(
 # MAGIC
 # MAGIC  create or replace view project_workspace_count as 
 # MAGIC  select dept, count(9) workspace_count from (
-# MAGIC  select Project_Acronym_CD, case lower(substring(domain, 1, charindex('.', domain)-1)) when 'agr' then 'AAFC' when 'asc-csa'  then 'CSA' when 'cnrc-nrc' then 'NRC' when 'dfo-mpo' then 'DFO' when 'ec' then 'ECCC' when 'inspection' then 'CFIA' when 'nrcan' then 'NRCan' when 'nrcan-rncan' then 'NRCan' when 'nrc-cnrc' then 'NRC'when 'otc-cta' then 'CTA' when 'ssc-spc' then 'SSC' else domain end as dept
+# MAGIC  select Project_Acronym_CD, case lower(substring(domain, 1, charindex('.', domain)-1)) when 'agr' then 'AAFC' when 'asc-csa'  then 'CSA' when 'cnrc-nrc' then 'NRC' when 'dfo-mpo' then 'DFO' when 'ec' then 'ECCC' when 'inspection' then 'CFIA' when 'nrcan' then 'NRCan' when 'nrcan-rncan' then 'NRCan' when 'nrc-cnrc' then 'NRC'when 'otc-cta' then 'CTA' when 'ssc-spc' then 'SSC' when 'hc-sc' then 'HC' else domain end as dept
 # MAGIC  from
 # MAGIC  (select distinct Project_Acronym_CD, RIGHT (user_name,LEN(user_name) - CHARINDEX( '@', user_name)) as domain 
 # MAGIC  from project_users u, projects p 
@@ -99,3 +99,10 @@ spark.sql(
 # MAGIC  select distinct Project_Acronym_CD, c.Current as spend 
 # MAGIC  from project_credits c, projects p 
 # MAGIC  where p.project_id = c.projectid;
+# MAGIC  
+# MAGIC  create or replace view project_user_department as
+# MAGIC  select distinct user_name, case lower(substring(domain, 1, charindex('.', domain)-1)) when 'agr' then 'AAFC' when 'asc-csa'  then 'CSA' when 'cnrc-nrc' then 'NRC' when 'dfo-mpo' then 'DFO' when 'ec' then 'ECCC' when 'inspection' then 'CFIA' when 'nrcan' then 'NRCan' when 'nrcan-rncan' then 'NRCan' when 'nrc-cnrc' then 'NRC'when 'otc-cta' then 'CTA' when 'ssc-spc' then 'SSC' when 'hc-sc' then 'HC' else domain end as dept from (
+# MAGIC  SELECT RIGHT (user_name,
+# MAGIC  LEN(user_name) - CHARINDEX( '@', user_name)) AS Domain, user_name
+# MAGIC  FROM project_users) as emails where domain not like 'apption%';
+# MAGIC
