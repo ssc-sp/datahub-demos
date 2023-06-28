@@ -22,10 +22,11 @@ from project_credits c, projects p
 where p.project_id = c.projectid;
 
 /* project_user_department */
-select distinct user_name, case lower(substring(domain, 1, charindex('.', domain)-1)) when 'agr' then 'AAFC' when 'asc-csa'  then 'CSA' when 'cnrc-nrc' then 'NRC' when 'dfo-mpo' then 'DFO' when 'ec' then 'ECCC' when 'inspection' then 'CFIA' when 'nrcan' then 'NRCan' when 'nrcan-rncan' then 'NRCan' when 'nrc-cnrc' then 'NRC'when 'otc-cta' then 'CTA' when 'ssc-spc' then 'SSC' when 'hc-sc' then 'HC' else domain end as dept from (
+select distinct user_name, case lower(substring(domain, 1, charindex('.', domain)-1)) when 'agr' then 'AAFC' when 'asc-csa'  then 'CSA' when 'cnrc-nrc' then 'NRC' when 'dfo-mpo' then 'DFO' when 'ec' then 'ECCC' when 'inspection' then 'CFIA' when 'nrcan' then 'NRCan' when 'nrcan-rncan' then 'NRCan' when 'nrc-cnrc' then 'NRC'when 'otc-cta' then 'CTA' when 'ssc-spc' then 'SSC' when 'hc-sc' then 'HC' else domain end as dept,
+case when u.lastlogindatetime >= getdate()-30 then 1 else 0 end is_active from (
 SELECT RIGHT (user_name,
 LEN(user_name) - CHARINDEX( '@', user_name)) AS Domain, user_name, project_id
-FROM project_users) as emails where domain not like 'apption%';
+FROM project_users) as emails, portalusers u where domain not like 'apption%' and lower(user_name)=lower(u.email);
 
 /*user with multiple projects*/
 select user_name, count(9) from (
