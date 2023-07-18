@@ -4,6 +4,8 @@
 # MAGIC
 # MAGIC This notebook demonstrates how to create and view visualizations of your Databricks data. This notebook uses Python, while another notebook shows some similar code in R.
 # MAGIC
+# MAGIC This is a comment
+# MAGIC
 # MAGIC ## Titanic Passenger Dataset
 # MAGIC
 # MAGIC This dataset contains information about the passengers aboard the Titanic, such as their age, fare paid, and whether they survived. It's often used for learning AI, since you can use this information to predict whether a passengers survived or not, but it also provides some interesting data to visualize.
@@ -22,7 +24,7 @@ display(df)
 import pandas as pd
 
 df_pandas = df.toPandas()
-display(df_pandas)
+display(df)
 
 # COMMAND ----------
 
