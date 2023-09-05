@@ -52,8 +52,8 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ github.token }}
-
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Lowercase the repo name and username
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
@@ -62,7 +62,7 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:docker/django-app"
-          tags: ghcr.io/ssc-sp/${{ env.REPO }}:dev
+          tags: ghcr.io/${{ env.REPO }}:dev
           file: ./Dockerfile
 
   deploy:
