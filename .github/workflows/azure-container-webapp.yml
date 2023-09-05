@@ -62,7 +62,7 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:docker/django-app"
-          tags: ghcr.io/${{ env.REPO }}:dev
+          tags: ghcr.io/ssc-sp/${{ env.REPO }}:dev
           file: ./Dockerfile
 
   deploy:
