@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  web:
+    image: ghcr.io/ssc-sp/django-app:latest
+    ports:
+      - "8000:8000"
+    command: /bin/bash entry-point.sh
+    volumes:
+      - my_code:/code
+    depends_on:
+      - db
+  db:
+    image: docker.io/postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgres_data:
+  my_code:

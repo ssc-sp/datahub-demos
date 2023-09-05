@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Country Statistics</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="container">
+		<h1>Statistics</h1>
+                <!--<img src="{% static 'images/books_by_year.png' %}" alt="Books by Release Year"/>
+		<h1>Book Collection</h1>
+
+		<form method="get" action"{% url 'all_books' %}">
+			<input type="text" name="search" placeholder="Search by title or author">
+			<input type="text" name="author" placeholder="Filter by author">
+			<input type="text" name="year" placeholder="Filter by year">
+			<button type="submit">Search</button>
+		</form> -->
+
+		<table class="table">
+			<tr>
+				<th>Country</th>
+				<th>Population</th>
+				<th>Birth Rate</th>
+				<th>Death Rate</th>
+				<th>Net Migration</th>
+			</tr>
+			{% for stat in stats %}
+			<tr>
+				<td>{{ stat.country_name }}</td>
+				<td>{{ stat.pop }}</td>
+				<td>{{ stat.birth_rate }}</td>
+				<td>{{ stat.death_rate }}</td>
+				<td>{{ stat.net_migration }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		</div>
+	</body>
+</html>
