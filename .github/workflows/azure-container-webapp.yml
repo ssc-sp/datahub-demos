@@ -61,8 +61,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: docker/django-app
-          tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
+          context: "{{defaultContext}}:docker/django-app"
+          tags: ghcr.io/${{ env.REPO }}:dev
           file: ./Dockerfile
 
   deploy:
