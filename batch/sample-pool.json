@@ -1,0 +1,56 @@
+{
+    "id": "pool12",
+    "displayName": null,
+    "url": "/subscriptions/bc4bcb08-d617-49f4-b6af-69d6f10c240b/resourceGroups/fsdh_proj_ccrs_poc_rg/providers/Microsoft.Batch/batchAccounts/fsdhbatchprojccrspoc/pools/pool12",
+    "lastModified": "2023-09-14T13:46:04.688Z",
+    "creationTime": "2023-09-11T14:41:59.839Z",
+    "state": "active",
+    "stateTransitionTime": "2023-09-11T14:41:59.839Z",
+    "allocationState": "steady",
+    "allocationStateTransitionTime": "2023-09-14T13:48:55.400Z",
+    "vmSize": "STANDARD_D3_V2",
+    "virtualMachineConfiguration": {
+        "imageReference": {
+            "publisher": "microsoft-azure-batch",
+            "offer": "ubuntu-server-container",
+            "sku": "20-04-lts",
+            "version": "latest",
+            "virtualMachineImageId": null,
+            "exactVersion": null
+        },
+        "nodeAgentSKUId": "batch.node.ubuntu 20.04",
+        "licenseType": null,
+        "containerConfiguration": {
+            "type": "dockercompatible",
+            "containerImageNames": [
+                "ghcr.io/ssc-sp/dbr-sen2cor:latest"
+            ]
+        },
+        "nodePlacementConfiguration": {
+            "policy": "Regional"
+        }
+    },
+    "resizeTimeout": "PT15M",
+    "currentDedicatedNodes": 0,
+    "currentLowPriorityNodes": 0,
+    "targetDedicatedNodes": 0,
+    "targetLowPriorityNodes": 0,
+    "enableAutoScale": false,
+    "autoScaleFormula": null,
+    "autoScaleEvaluationInterval": null,
+    "enableInterNodeCommunication": false,
+    "networkConfiguration": {
+        "subnetId": null,
+        "dynamicVNetAssignmentScope": "none",
+        "publicIPAddressConfiguration": {
+            "provision": "batchmanaged"
+        },
+        "enableAcceleratedNetworking": false
+    },
+    "taskSlotsPerNode": 1,
+    "taskSchedulingPolicy": {
+        "nodeFillType": "pack"
+    },
+    "targetNodeCommunicationMode": "default",
+    "currentNodeCommunicationMode": null
+}

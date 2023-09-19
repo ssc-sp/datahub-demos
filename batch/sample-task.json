@@ -1,0 +1,66 @@
+{
+  "id": "run27",
+  "url": "https://fsdhbatchprojccrspoc.canadacentral.batch.azure.com/jobs/pool12job/tasks/run27",
+  "eTag": "0x8DBB5258AE1E0AD",
+  "lastModified": "2023-09-14T13:21:45.153Z",
+  "creationTime": "2023-09-14T13:21:45.153Z",
+  "state": "completed",
+  "stateTransitionTime": "2023-09-14T13:40:58.937Z",
+  "previousState": "running",
+  "previousStateTransitionTime": "2023-09-14T13:21:53.009Z",
+  "commandLine": "python3 /ccrs/batch/scripts/s2demo2.py",
+  "containerSettings": {
+    "containerRunOptions": "-v /mnt/batch/tasks/fsmounts/ccrs:/ccrs",
+    "imageName": "ghcr.io/ssc-sp/dbr-sen2cor:latest",
+    "workingDirectory": "taskWorkingDirectory"
+  },
+  "resourceFiles": [],
+  "environmentSettings": [],
+  "constraints": {
+    "maxWallClockTime": "P10675199DT2H48M5.4775807S",
+    "retentionTime": "P7D",
+    "maxTaskRetryCount": 0
+  },
+  "requiredSlots": 1,
+  "userIdentity": {
+    "autoUser": {
+      "scope": "task",
+      "elevationLevel": "admin"
+    }
+  },
+  "executionInfo": {
+    "startTime": "2023-09-14T13:21:53.370Z",
+    "endTime": "2023-09-14T13:40:58.937Z",
+    "exitCode": 1,
+    "containerInfo": {
+      "containerId": "814f807317d876196ae247a8773dc6eea25fec1ea8dc93e7f267f77d89e1ee44",
+      "state": "exited"
+    },
+    "failureInfo": {
+      "category": "UserError",
+      "code": "FailureExitCode",
+      "message": "The task exited with an exit code representing a failure",
+      "details": [
+        {
+          "name": "Message",
+          "value": "The task process exited with an unexpected exit code"
+        },
+        {
+          "name": "AdditionalErrorCode",
+          "value": "FailureExitCode"
+        }
+      ]
+    },
+    "retryCount": 0,
+    "requeueCount": 0,
+    "result": "failure"
+  },
+  "nodeInfo": {
+    "affinityId": "TVM:tvmps_359bf8ab0b6b63c80c65172fe1e1b49a73e3fb81676f58dc502287b5d29e885e_d",
+    "nodeUrl": "https://fsdhbatchprojccrspoc.canadacentral.batch.azure.com/pools/pool12/nodes/tvmps_359bf8ab0b6b63c80c65172fe1e1b49a73e3fb81676f58dc502287b5d29e885e_d",
+    "poolId": "pool12",
+    "nodeId": "tvmps_359bf8ab0b6b63c80c65172fe1e1b49a73e3fb81676f58dc502287b5d29e885e_d",
+    "taskRootDirectory": "workitems/pool12job/job-1/run27",
+    "taskRootDirectoryUrl": "https://fsdhbatchprojccrspoc.canadacentral.batch.azure.com/pools/pool12/nodes/tvmps_359bf8ab0b6b63c80c65172fe1e1b49a73e3fb81676f58dc502287b5d29e885e_d/files/workitems/pool12job/job-1/run27"
+  }
+}

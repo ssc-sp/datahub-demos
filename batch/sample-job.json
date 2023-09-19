@@ -1,0 +1,28 @@
+{
+    "id": "pool12job",
+    "displayName": null,
+    "usesTaskDependencies": false,
+    "url": "https://fsdhbatchprojccrspoc.canadacentral.batch.azure.com/jobs/pool12job",
+    "lastModified": "2023-09-11T14:53:31.000Z",
+    "creationTime": "2023-09-11T14:53:31.000Z",
+    "state": "active",
+    "stateTransitionTime": "2023-09-11T14:53:31.000Z",
+    "previousState": null,
+    "priority": 0,
+    "maxParallelTasks": -1,
+    "constraints": {
+        "maxWallClockTime": "P10675199DT2H48M5.4775807S",
+        "maxTaskRetryCount": 0
+    },
+    "commonEnvironmentSettings": [],
+    "poolInfo": {
+        "poolId": "pool12"
+    },
+    "onAllTasksComplete": "noaction",
+    "onTaskFailure": "noaction",
+    "executionInfo": {
+        "startTime": "2023-09-11T14:53:31.000Z",
+        "poolId": "pool12",
+        "terminateReason": null
+    }
+}
