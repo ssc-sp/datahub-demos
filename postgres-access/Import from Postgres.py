@@ -51,7 +51,7 @@ print(url)
 # COMMAND ----------
 
 # MAGIC %sh
-# MAGIC nc -vz "fsdh-ailab-psql-poc.postgres.database.azure.com" 5432
+# MAGIC nc -vz "host" 5432
 
 # COMMAND ----------
 
