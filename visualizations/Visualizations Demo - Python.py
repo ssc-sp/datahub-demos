@@ -19,6 +19,7 @@ display(df)
 
 # COMMAND ----------
 
+# This is how you can convert a dataframe to Pandas!
 import pandas as pd
 
 df_pandas = df.toPandas()
