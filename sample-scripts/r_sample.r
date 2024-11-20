@@ -21,3 +21,10 @@ result <- sql("SELECT Department, AVG(Age) as AverageAge FROM employees GROUP BY
 
 # Show the result of the SQL query
 showDF(result)
+
+# COMMAND ----------
+
+library(SparkR)
+sparkR.session()
+df <- read.df("dbfs:/mnt/fsdh-dbk-main-mount/fsdh-sample.csv", source = "csv")
+head(df, 3)
